@@ -2,11 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Time Counter</title>
+    <title>🦻🫖</title>
   </head>
   <body>
-    <button>Start</button>
-    <div>00:00:00</div>
-    <button>Reset</button>
+    <main>
+      <button id="listen-button" data-listening="false">We listen</button>
+      <output id="timer" role="timer">00:00:00</output>
+      <button id="judge-button">We don't judge</button>
+    </main>
+
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', () => {
+        const listenBtn = document.querySelector('#listen-button');
+        const judgeBtn = document.querySelector('#judge-button');
+        const timerDisplay = document.querySelector('#timer');
+
+        let seconds = 0;
+        let intervalId = null;
+
+        const formatTime = (seconds) => {
+          const date = new Date(seconds * 1000);
+          return new Intl.DateTimeFormat('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+            timeZone: 'UTC',
+          }).format(date);
+        };
+
+        const startTimer = () => {
+          if (listenBtn.dataset.listening === 'true') return;
+
+          listenBtn.dataset.listening = 'true';
+          intervalId = setInterval(() => {
+            seconds += 1;
+            timerDisplay.textContent = formatTime(seconds);
+          }, 1000);
+
+          if (Math.random() < 0.2) {
+            judgeBtn.textContent = 'We judge';
+          }
+        };
+
+        const resetTimer = () => {
+          clearInterval(intervalId);
+          intervalId = null;
+          seconds = 0;
+          timerDisplay.textContent = '00:00:00';
+          judgeBtn.textContent = "We don't judge";
+          listenBtn.dataset.listening = 'false';
+        };
+
+        listenBtn.addEventListener('click', startTimer);
+        judgeBtn.addEventListener('click', resetTimer);
+      });
+    </script>
   </body>
 </html>
