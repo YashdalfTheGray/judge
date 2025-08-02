@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#121212"
+      media="(prefers-color-scheme: dark)"
+    />
     <title>🦻🫖</title>
 
     <link
@@ -38,17 +50,18 @@
 
       output#timer {
         text-align: center;
-        font-size: 8rem;
+        font-size: clamp(2rem, 8vw, 8rem);
         font-family: ui-monospace, monospace;
       }
 
       button {
-        font-size: 6rem;
+        font-size: clamp(2rem, 8vw, 6rem);
         padding: 0.5em 1em;
         border: none;
         border-radius: 9999px;
         cursor: pointer;
         transition: opacity 0.2s, transform 0.1s;
+        -webkit-tap-highlight-color: transparent;
       }
 
       button:hover {
@@ -88,6 +101,12 @@
 
         output {
           color: #000;
+        }
+      }
+
+      @media (pointer: coarse) {
+        button:focus {
+          outline: none;
         }
       }
     </style>
